@@ -1,5 +1,5 @@
 const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
-const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/'
+const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/films/'
 const db = require('../models/index')
 const { Movie } = db;
 
@@ -39,9 +39,20 @@ const getMoviesByRuntime = async(req, res)=>{
 }
 
 const getMovieDetails = async(req, res) => {
-    console.log("movie detail");
     const { id } = req.params;
-    const movie = await fetch(GHIBLI_APP + id);
+    let movies = await fetch('https://ghibliapi.herokuapp.com/films');
+    movies = await movies.json()
+    movies = movies.map(movie => ({
+        id: movie.id,
+        title: movie.title,
+        description: movie.description,
+        director: movie.director,
+        producer: movie.producer,
+        release_date: movie.producer,
+        running_time: movie.running_time,
+        rt_score: movie.rt_score
+    }));
+    const movie = movies.find(movie => movie.id === id)
     res.status(200).send(movie);
 }
 
