@@ -1,5 +1,5 @@
 const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
-const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/'
+const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/films/'
 const db = require('../models/index')
 const { Movie } = db;
 
@@ -39,7 +39,6 @@ const getMoviesByRuntime = async(req, res)=>{
 }
 
 const getMovieDetails = async(req, res) => {
-    console.log("movie detail");
     const { id } = req.params;
     const movie = await fetch(GHIBLI_APP + id);
     res.status(200).send(movie);
