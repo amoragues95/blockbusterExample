@@ -1,5 +1,6 @@
 const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
 const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/'
+const { Movie } = db;
 
 const getMovies = async(req, res)=>{
     console.log('Movies');
@@ -44,9 +45,19 @@ const getMovieDetails = async(req, res) => {
 }
 
 
+const addMovie = (req, res, next) => {
+    const newMovie = {
+        ...req.body,
+        stock: 5
+    }
+    Movie.create(newMovie)
+    .then(movie => res.status(201).send("Movie Stocked"))
+    .catch(err => next(err))     
+}
 
 module.exports = {
     getMovies,
     getMovieDetails,
-    getMoviesByRuntime
+    getMoviesByRuntime,
+    addMovie
 }
