@@ -2,18 +2,18 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Movies', {
-      Codigo: {
+      code: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING
       },
-      Titulo: {
+      title: {
         type: Sequelize.STRING
       },
-      Stock: {
+      stock: {
         type: Sequelize.INTEGER
       },
-      CantidadDeAlquileres: {
+      rentals: {
         type: Sequelize.INTEGER
       },
       createdAt: {
