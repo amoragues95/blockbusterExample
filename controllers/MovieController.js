@@ -1,5 +1,6 @@
 const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
 const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/'
+const db = require('../models/index')
 const { Movie } = db;
 
 const getMovies = async(req, res)=>{

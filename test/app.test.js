@@ -29,7 +29,7 @@ describe('GET /movies', ()=>{
             assert.isNotEmpty(response);
             assert.isArray(response._body);
             const movie = response._body[0]
-            assert.containsAllKeys(movie, ["title","description","director","producer","release_date","running_time","rt_score", "pepito"]);
+            assert.containsAllKeys(movie, ["title","description","director","producer","release_date","running_time","rt_score"]);
         })
         .then(()=> done(), done) // soluciona el problema de  Error: Timeout of 2000ms exceeded.
     })

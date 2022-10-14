@@ -1,4 +1,3 @@
-const { validateEmail } = require('../helpers/helpers');
 const jwt = require('jsonwebtoken');
 
 const checkLoggedIn = (req, res, next) => {
@@ -38,19 +37,8 @@ const checkLoggedUser = (req, res, next) => {
     }
 }
 
-const checkMail = (req, res, next) => {
-    if(validateEmail(req.body.email)) {
-        next();
-    } else {
-        const error = new Error("Bad request");
-        error.status = 400;
-        next(error);
-    }
-}
-
 module.exports = {
     checkAdmin,
     checkLoggedIn,
-    checkLoggedUser,
-    checkMail
+    checkLoggedUser
 }
