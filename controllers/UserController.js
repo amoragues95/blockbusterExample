@@ -28,7 +28,7 @@ const login = (req, res, next) => {
                  usuario: usuarioDB,
               }, process.env.SEED_AUTENTICACION, {
               expiresIn: process.env.CADUCIDAD_TOKEN
-          })
+          });
           res.json({
               ok: true,
               usuario: usuarioDB,
@@ -38,15 +38,15 @@ const login = (req, res, next) => {
 }
 
 const register = (req, res, next) => {
-    let { nombre, email, password, role } = req.body;
-    let usuario = new User({
-        nombre,
+    let { email, password, dni, phone } = req.body;
+    let usuario = {
         email,
-        password: bcrypt.hashSync(password, 10),
-        role
-      });
+        dni,
+        phone,
+        password: bcrypt.hashSync(password, 10)
+      };
     User.create(usuario).then(usuarioDB => {
-        return res.json({
+        return res.status(201).json({
             ok: true,
             usuario: usuarioDB
          }).end();
