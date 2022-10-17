@@ -3,6 +3,12 @@ const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/films/'
 const db = require('../models/index')
 const { Movie } = db;
 
+async function getFilmFromAPIByName(name){    
+    let films = await fetch('https://ghibliapi.herokuapp.com/films')
+    films = await films.json();
+    return films.find(film => film.title.includes(name))
+}
+
 const getMovies = async(req, res)=>{
     console.log('Movies');
     let movies = await fetch('https://ghibliapi.herokuapp.com/films');
@@ -57,10 +63,15 @@ const getMovieDetails = async(req, res) => {
 }
 
 
+
+
 const addMovie = (req, res, next) => {
+    const movie = getFilmFromAPIByName(req.body.title)
     const newMovie = {
-        ...req.body,
-        stock: 5
+        code: movie.id,
+        title: movie.title,
+        stock: 5,
+        rentals: 0
     }
     Movie.create(newMovie)
     .then(movie => res.status(201).send("Movie Stocked"))
