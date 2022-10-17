@@ -72,6 +72,31 @@ describe('POST /register', () => {
     })
 })
 
+describe('POST /login', () => {
+    const userExample = {
+        "nombre": "Cristian",
+        "email": "cristian@gmail.com",
+        "password": "avalith",
+        "phone": "555-555-555",
+        "dni": "43123453"
+    }
+
+    it('should return 200', done => {
+        request(app)
+        .post('/register')
+        .send(userExample)
+        .then(user => {
+            request(app)
+            .post('/login')
+            .send({ email: userExample.email, password: userExample.password})
+            .expect(200)
+            .then(res => {
+                //checks y aserciones
+            }).then(()=> done(), done)
+        })
+    })
+})
+
 describe('Not Found handling', ()=> {
     it('Should return status 404', done => {
         request(app)
