@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false
       },
       id_film: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       rent_date: {
