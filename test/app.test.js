@@ -90,8 +90,8 @@ describe.only("POST /register", () => {
       .post("/register")
       .send(userExample)
       .expect(201)
-        .then(async (response) => {
-          assert.isTrue(response._body.ok)
+      .then(async (response) => {
+        assert.isTrue(response._body.ok);
         assert.isNotEmpty(response._body); //no esta vacio
         assert.isNotArray(response._body);
         assert.containsAllKeys(response._body.usuario, [
