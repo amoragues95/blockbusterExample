@@ -4,7 +4,7 @@ const { FOREIGNKEYS } = require("sequelize/types/query-types");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('rents', {
+    await queryInterface.createTable('Rents', {
       id_rent: {
         allowNull: false,
         autoIncrement: true,

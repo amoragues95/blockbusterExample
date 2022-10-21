@@ -1,8 +1,8 @@
 "use strict";
+const db = require('./index');
 const { User, Movie } = db;
 const { Model } = require("sequelize");
-const Movie = require("./movie");
-const User = require("./user");
+
 module.exports = (sequelize, DataTypes) => {
   class FavouriteFilms extends Model {
     /**
