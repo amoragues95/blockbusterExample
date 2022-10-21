@@ -12,17 +12,19 @@ module.exports = (sequelize, DataTypes) => {
       Movie.belongsToMany(models.User, { through: "FavouriteFilms" });
     }
   }
-  Movie.init(
-    {
-      code: DataTypes.STRING,
-      title: DataTypes.STRING,
-      stock: DataTypes.INTEGER,
-      rentals: DataTypes.INTEGER,
+  Movie.init({
+    code: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      primaryKey: true
     },
-    {
-      sequelize,
-      modelName: "Movie",
-    }
-  );
+    title: DataTypes.STRING,
+    stock: DataTypes.INTEGER,
+    rentals: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Movie',
+  });
   return Movie;
 };
