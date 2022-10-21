@@ -1,4 +1,7 @@
 'use strict';
+
+const { FOREIGNKEYS } = require("sequelize/types/query-types");
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('rents', {
@@ -12,9 +15,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
-      id_film: {
-        type: Sequelize.INTEGER,
-        allowNull: false
+      code: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        foreignKey: true
       },
       rent_date: {
         type: Sequelize.DATE,

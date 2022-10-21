@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class rent extends Model {
     /**
@@ -12,42 +10,46 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       //n to n with user and film
       rent.belongsTo(models.user, {
-        foreignKey: 'id_user',
-        as: 'user'
+        foreignKey: "id_user",
+        as: "user",
       });
       rent.belongsTo(models.movie, {
-        foreignKey: 'id_film',
-        as: 'film'
+        foreignKey: "code",
+        as: "film",
       });
     }
   }
-  rent.init({
-    id_rent: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+  rent.init(
+    {
+      id_rent: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+      },
+      id_user: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      code: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        foreignKey: true,
+      },
+      rent_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      refund_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      userRefund_date: DataTypes.DATE,
     },
-    id_user: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    id_film:{
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    rent_date: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    refund_date: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    userRefund_date: DataTypes.DATE
-  }, {
-    sequelize,
-    modelName: 'rent',
-  });
+    {
+      sequelize,
+      modelName: "rent",
+    }
+  );
   return rent;
 };
