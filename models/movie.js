@@ -14,13 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Movie.init({
-    id: {
+    code: {
+      type: DataTypes.STRING,
       allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
+      unique: true,
+      primaryKey: true
     },
-    code: DataTypes.STRING,
     title: DataTypes.STRING,
     stock: DataTypes.INTEGER,
     rentals: DataTypes.INTEGER
