@@ -63,8 +63,6 @@ const getMovieDetails = async(req, res) => {
 }
 
 
-
-
 const addMovie = (req, res, next) => {
     const movie = getFilmFromAPIByName(req.body.title)
     const newMovie = {
@@ -77,6 +75,8 @@ const addMovie = (req, res, next) => {
     .then(movie => res.status(201).send("Movie Stocked"))
     .catch(err => next(err))     
 }
+
+
 
 module.exports = {
     getMovies,
