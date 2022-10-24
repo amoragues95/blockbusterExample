@@ -13,6 +13,7 @@ router.get('/runtime/:max', MovieController.getMoviesByRuntime)
 router.post('/login', UsersController.login)
 router.post('/register', UsersController.register)
 router.post('/movie', checkLoggedIn, MovieController.addMovie)
+router.post('/favourite/:code', checkLoggedIn, MovieController.addFavourite)
 router.use(errorHandler.notFound);
 
 module.exports = router;
