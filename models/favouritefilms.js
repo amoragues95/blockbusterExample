@@ -1,5 +1,5 @@
 "use strict";
-const db = require('../models/index');
+const db = require('./index');
 const { User, Movie } = db;
 const { Model } = require("sequelize");
 

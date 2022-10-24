@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Rent.init(
     {
-      id_rent: {
+      id_Rent: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -36,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         foreignKey: true,
       },
-      rent_date: {
+      Rent_date: {
         type: DataTypes.DATE,
         allowNull: false,
       },
