@@ -8,11 +8,15 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      id_film: {
-        type: Sequelize.INTEGER,
+      MovieCode: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        foreignKey: true,
       },
-      id_user: {
+      UserId: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        foreignKey: true,
       },
       review: {
         type: Sequelize.STRING,
