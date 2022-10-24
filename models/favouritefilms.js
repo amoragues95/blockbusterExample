@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       MovieCode: {
         type: DataTypes.INTEGER,
+        unique: true,
         references: {
           model: Movie,
           key: "id",

@@ -10,6 +10,7 @@ module.exports = {
       },
       MovieCode: {
         type: Sequelize.STRING,
+        unique: true,
         allowNull: false,
         foreignKey: true,
       },

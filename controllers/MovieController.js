@@ -82,29 +82,21 @@ const addFavourite = async (req, res, next) => {
         const code = req.params.code;
         const {review} = req.body;
 
-    //TODO: check body review middleware?¡
+        Movie.findOne({ where: { code: code } }).then(film => {
+                if (!film) throw new Error(' Pelicula no disponible ')
 
-        let movie = await fetch(`https://ghibliapi.herokuapp.com/films/${code}`);
-        movie = await movie.json();
-    
-    //Obtener el token, cortarlo y decodificarlo completo.
-        const token = req.headers.authorization.split(" ")[1]; //para agarrar el bearer token
-        let decoded = jwt.decode(token, { complete: true }); //decodificar el token de manera completa
+                const newFavouriteFilms = {
+                    MovieCode: film.code,
+                    UserId: req.user.id,
+                    review: review,
+                };
+            
+            FavouriteFilms.create(newFavouriteFilms).then(newFav => {
+                if (!newFav) throw new Error('FAILED to add favorite movie')
 
-    //Insertar en la Base de datos la pelicula.code obtenida y el usuario.id que esta logeado y en caso de que haya review agregarla
-        // console.log(movie.id);
-        // console.log(decoded.payload.usuario.id);
-        // console.log(review);
-
-        const newFavouriteFilms = {
-            MovieCode: movie.id,
-            UserId: decoded.payload.usuario.id,
-            review: review,
-        };
-        
-        FavouriteFilms.create(newFavouriteFilms);
-
-        res.status(201).send("Movie Added to Favorites");
+                res.status(201).send("Movie Added to Favorites");
+            });
+        });        
     } catch (error) {
         error => next(error);
     }
