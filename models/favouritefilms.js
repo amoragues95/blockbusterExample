@@ -1,6 +1,8 @@
 "use strict";
-const db = require('./index');
-const { User, Movie } = db;
+//const db = require('./index');
+//const { User, Movie } = db;
+const { User } = require ('./user')
+const { Movie } = require ('./movie')
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
@@ -13,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       FavouriteFilms.hasMany(models.Movie, {
-        foreignKey: "id",
-        target_key: "id_film",
+        foreignKey: "code",
+        target_key: "code",
       });
       FavouriteFilms.hasMany(models.User, {
         foreignKey: "id",
@@ -24,14 +26,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   FavouriteFilms.init(
     {
-      id_film: {
+      MovieCode: {
         type: DataTypes.INTEGER,
+        unique: true,
         references: {
           model: Movie,
           key: "id",
         },
       },
-      id_user: {
+      UserId: {
         type: DataTypes.INTEGER,
         references: {
           model: User,
