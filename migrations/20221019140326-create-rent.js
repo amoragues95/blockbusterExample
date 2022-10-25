@@ -1,7 +1,5 @@
 'use strict';
 
-const { FOREIGNKEYS } = require("sequelize/types/query-types");
-
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Rents', {
