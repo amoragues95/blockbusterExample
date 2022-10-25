@@ -1,8 +1,8 @@
 "use strict";
 //const db = require('./index');
 //const { User, Movie } = db;
-const { User } = require ('./user')
-const { Movie } = require ('./movie')
+const { User } = require('./user')
+const { Movie } = require('./movie')
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
-      review: DataTypes.STRING,
+      review: DataTypes.STRING
     },
     {
       sequelize,
