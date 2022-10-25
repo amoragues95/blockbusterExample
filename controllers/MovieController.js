@@ -1,7 +1,9 @@
 const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
 const GHIBLI_APP = 'https://ghibliapi.herokuapp.com/films/'
 const db = require('../models/index')
-const { Movie } = db;
+const { Movie, User, FavouriteFilms } = db;
+// JsonWebToken
+const jwt = require("jsonwebtoken");
 
 async function getFilmFromAPIByName(name){    
     let films = await fetch('https://ghibliapi.herokuapp.com/films')
@@ -62,7 +64,6 @@ const getMovieDetails = async(req, res) => {
     res.status(200).send(movie);
 }
 
-
 const addMovie = (req, res, next) => {
     const movie = getFilmFromAPIByName(req.body.title)
     const newMovie = {
@@ -76,11 +77,35 @@ const addMovie = (req, res, next) => {
     .catch(err => next(err))     
 }
 
+const addFavourite = async (req, res, next) => {
+    try {
+        const code = req.params.code;
+        const {review} = req.body;
 
+        Movie.findOne({ where: { code: code } }).then(film => {
+                if (!film) throw new Error(' Pelicula no disponible ')
+
+                const newFavouriteFilms = {
+                    MovieCode: film.code,
+                    UserId: req.user.id,
+                    review: review,
+                };
+            
+            FavouriteFilms.create(newFavouriteFilms).then(newFav => {
+                if (!newFav) throw new Error('FAILED to add favorite movie')
+
+                res.status(201).send("Movie Added to Favorites");
+            });
+        });        
+    } catch (error) {
+        error => next(error);
+    }
+}
 
 module.exports = {
     getMovies,
     getMovieDetails,
     getMoviesByRuntime,
-    addMovie
+    addMovie,
+    addFavourite
 }
