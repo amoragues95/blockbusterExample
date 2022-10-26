@@ -10,7 +10,7 @@ const rentMovie = (req, res, next) => {
 
     Movie.findOne({ where: { code: code, stock: { [Op.gt]: 0 } } })
         .then(rental => {
-            if (!rental) throw new Error(' Pelicula no disponible ')
+            if (!rental) throw new Error(' Missing stock ')
             Rent.create({
                 code: rental.code,
                 id_user: req.user.id,
