@@ -5,7 +5,8 @@ module.exports = {
       code: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        unique: true
       },
       title: {
         type: Sequelize.STRING
