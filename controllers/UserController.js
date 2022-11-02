@@ -2,6 +2,8 @@ const db = require('../models/index');
 const { User } = db;
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const nodemailer = require("nodemailer");
+
 
 const login = (req, res, next) => {
     let body = req.body
@@ -37,7 +39,7 @@ const login = (req, res, next) => {
     }).catch(error => next(error));
 }
 
-const register = (req, res, next) => {
+const register = async(req, res, next) => {
     let { email, password, dni, phone } = req.body;
     let usuario = {
         email,
@@ -45,7 +47,25 @@ const register = (req, res, next) => {
         phone,
         password: bcrypt.hashSync(password, 10)
     };
-    User.create(usuario).then(usuarioDB => {
+    let testAccount = await nodemailer.createTestAccount();
+
+        
+    User.create(usuario).then(async usuarioDB => {
+        let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: "ejemplosmailalexis@gmail.com",
+                pass: "uosjucgjopazadit"
+            }
+        });
+        let info = await transporter.sendMail({
+            from: '"Blockbuster" <no-reply@blockbuster.com>',
+            to: email,
+            subject: "Verify your account",
+            text: "Verify your account please http://localhost:3000/verify/" + usuarioDB.id
+        });
         return res.status(201).json({
             ok: true,
             usuario: usuarioDB
@@ -53,7 +73,15 @@ const register = (req, res, next) => {
     })
 }
 
+    const verifyUser = (req, res) => {
+        User.update({verified: true} ,{ where: { id: req.params.id }})
+        .then(() => {
+            res.status(200).send("User Verified")
+        })
+    }
+ 
 module.exports = {
     login,
-    register
+    register,
+    verifyUser
 }

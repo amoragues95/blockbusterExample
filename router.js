@@ -11,7 +11,8 @@ const RentController = require('./controllers/RentController')
 router.use(bodyParser.json())
 router.get('/movies', MovieController.getMovies);
 router.get('/movies/:id', MovieController.getMovieDetails);
-router.get('/runtime/:max', MovieController.getMoviesByRuntime)
+router.get('/runtime/:max', MovieController.getMoviesByRuntime);
+router.get('/verify/:id', UsersController.verifyUser)
 router.get('/favourites', checkLoggedUser, MovieController.allFavouritesMovies)
 router.post('/login', UsersController.login)
 router.post('/register', UsersController.register)
