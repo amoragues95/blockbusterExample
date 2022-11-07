@@ -9,6 +9,9 @@ const RentController = require('./controllers/RentController')
 
 
 router.use(bodyParser.json())
+router.get('/', (req, res) => {
+    res.status(200).send('HOMEPAGE')
+})
 router.get('/movies', MovieController.getMovies);
 router.get('/movies/:id', MovieController.getMovieDetails);
 router.get('/runtime/:max', MovieController.getMoviesByRuntime);
