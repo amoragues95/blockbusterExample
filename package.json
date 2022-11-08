@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node app.js",
     "test": "mocha --exit",
-    "migrate": "npx sequelize-cli db:migrate"
+    "migrate": "node_modules/.bin/sequelize db:migrate"
   },
   "author": "",
   "license": "ISC",
