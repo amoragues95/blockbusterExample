@@ -1,5 +1,4 @@
 const { expect } = require("chai");
-const { response } = require("express");
 const request = require("supertest");
 const assert = require("chai").assert;
 const { app } = require("../app");
